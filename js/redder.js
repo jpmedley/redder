@@ -42,7 +42,6 @@ function fetchNavigation() {
       var linkText = document.createTextNode(json[k].name);
       linkEl.appendChild(linkText);
 
-      //var link = '<a class="mdl-navigation__link" href="' + json[k].name + '">' + json[k].name + '</a>'
       var linkNode = navEl.appendChild(linkEl);
       linkNode.addEventListener('click', function(e) {
         fetchSubreddit(e.target.firstChild.nodeValue);
