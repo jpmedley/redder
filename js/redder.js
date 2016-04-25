@@ -59,7 +59,7 @@ function fetchSubreddit(url) {
         var aBreak = document.createElement('br');
         subtitleSpan.appendChild(aBreak);
 
-        var subtitleText = document.createTextNode(json.data.children[i].data.author + ' &mdash; ' + json.data.children[i].data.num_comments + ' comments');
+        var subtitleText = document.createTextNode(json.data.children[i].data.author + ' — ' + json.data.children[i].data.num_comments + ' comments');
         subtitleSpan.appendChild(subtitleText);
         primarySpan.appendChild(subtitleSpan);
         articleItem.appendChild(primarySpan);
