@@ -65,6 +65,9 @@ function fetchSubreddit(url) {
         articleItem.appendChild(primarySpan);
         articleList.appendChild(articleItem);
       };
+      if (entriesEl.hasChildNodes) {
+        entriesEl.removeChild(entriesEl.firstChild);
+      }
       entriesEl.appendChild(articleList);
     });
   }
@@ -96,4 +99,8 @@ function fetchNavigation() {
 
 window.onload = function() {
   fetchNavigation();
+  var anchorLocation = window.location.href.indexOf('#');
+  if (anchorLocation != -1) {
+    fetchSubreddit(window.location.href.slice(anchorLocation + 1));
+  }
 }
