@@ -1,24 +1,68 @@
 var navEl = document.querySelector('.mdl-navigation');
 var entriesEl = document.querySelector('.page-content');
 
+function createFullElement(elementName, attributeData) {
+  var newElement = document.createElement(elementName);
+  for (attr in attributeData) {
+    var newAttribute = document.createAttribute(attr)
+    newAttribute.value = attributeData[attr]
+    newElement.setAttributeNode(newAttribute);
+  }
+
+  return newElement;
+}
+
 function fetchSubreddit(url) {
   if (url) {
     fetch('https://www.reddit.com/r/' + url + '.json').then(function(response) {
       return response.json();
     }).then(function(json) {
-      var links = '';
+      var articleList = createFullElement('ul', {
+        'class'; 'demo-list-three mdl-list'
+      });
+
       for (var i = 0; i < json.data.children.length; i++) {
-        links += '<li class="mdl-list__item mdl-list__item--three-line">' +
-          '<span class="mdl-list__item-primary-content">' +
-          '<i class="material-icons mdl-list__item-avatar">person</i>' +
-          '<span><a href="' + json.data.children[i].data.url + '">' +
-          json.data.children[i].data.title + '</a></span>' + 
-          '<span class="mdl-list__item-sub-title"><br/>' + 
-          json.data.children[i].data.author + ' &mdash; ' +
-          json.data.children[i].data.num_comments + ' comments</span>' +
-          '</span></li>'
-      }
-      entriesEl.innerHTML = '<ul class="demo-list-three mdl-list">' + links + '</ul>';
+        //Make the enclosing list item.
+        var articleItem = createFullElement('li', {
+          'class': 'mdl-list__item mdl-list__item--three-line'
+        });
+
+        //Make the primary content span.
+        var primarySpan = createFullElement('span', {
+          'class': 'mdl-list__item-primary-content'
+        });
+
+        //Make the article link.
+        var anImage = createFullElement('i', {
+          'class': 'material-icons mdl-list__item-avatar'
+        });
+
+        var someText = document.createTextNode('person');
+        anImage.appendChild(someText);
+        primarySpan.appendChild(anImage);
+
+        var linkSpan = document.createElement('span');
+
+        var contentLink = createFullElement('a', {
+          'href': json.data.children[i].data.url
+        })
+
+        var linkText = document.createTextNode(json.data.children[i].data.title);
+        var contentLink.appendChild(linkText);
+        linkSpan.appendChild(contentLink);
+        primarySpan.appendChild(linkSpan);
+
+        //Make the subtitle line.
+        var subtitleSpan = createFullElement('span', {
+          'class': 'mdl-list__item-sub-title'
+        })
+        var aBreak = document.createElement('br');
+        subtitleSpan.appendChild(aBreak);
+
+        var subtitleText = document.createTextNode(json.data.children[i].data.author + ' &mdash; ' + 
+          json.data.children[i].data.num_comments + ' comments');
+        subtitleSpan.appendChild(subtitleText);
+        primarySpan.appendChild(subtitleSpan);
     });
   }
 }
@@ -29,20 +73,15 @@ function fetchNavigation() {
     return response.json();
   }).then(function(json) {
     for (var k = 0; k < json.length; k++) {
-      var linkEl = document.createElement('a');
-
-      var classAtt = document.createAttribute('class');
-      classAtt.value = "mdl-navigation__link";
-      linkEl.setAttributeNode(classAtt);
-
-      var hrefAtt = document.createAttribute('href');
-      hrefAtt.value = '#' + json[k].name;
-      linkEl.setAttributeNode(hrefAtt);
+      var linkEl = createFullElement('a', {
+        'class': 'mdl-navigation__link',
+        'href': '#' + json[k].name
+      });
 
       var linkText = document.createTextNode(json[k].name);
       linkEl.appendChild(linkText);
-
       var linkNode = navEl.appendChild(linkEl);
+
       linkNode.addEventListener('click', function(e) {
         fetchSubreddit(e.target.firstChild.nodeValue);
       });
