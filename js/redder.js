@@ -18,7 +18,7 @@ function fetchSubreddit(url) {
       return response.json();
     }).then(function(json) {
       var articleList = createFullElement('ul', {
-        'class'; 'demo-list-three mdl-list'
+        'class': 'demo-list-three mdl-list'
       });
 
       for (var i = 0; i < json.data.children.length; i++) {
@@ -48,7 +48,7 @@ function fetchSubreddit(url) {
         })
 
         var linkText = document.createTextNode(json.data.children[i].data.title);
-        var contentLink.appendChild(linkText);
+        contentLink.appendChild(linkText);
         linkSpan.appendChild(contentLink);
         primarySpan.appendChild(linkSpan);
 
@@ -59,10 +59,13 @@ function fetchSubreddit(url) {
         var aBreak = document.createElement('br');
         subtitleSpan.appendChild(aBreak);
 
-        var subtitleText = document.createTextNode(json.data.children[i].data.author + ' &mdash; ' + 
-          json.data.children[i].data.num_comments + ' comments');
+        var subtitleText = document.createTextNode(json.data.children[i].data.author + ' &mdash; ' + json.data.children[i].data.num_comments + ' comments');
         subtitleSpan.appendChild(subtitleText);
         primarySpan.appendChild(subtitleSpan);
+        articleItem.appendChild(primarySpan);
+        articleList.appendChild(articleItem);
+      };
+      entriesEl.appendChild(articleList);
     });
   }
 }
