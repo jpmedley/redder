@@ -48,10 +48,14 @@ function fetchSubreddit(url) {
         })
         contentLink.addEventListener('click', function(e) {
           e.preventDefault();
-          // To Do: Chop trailing slash and add '.json'.
-          var req = new Request(e.target.href, {mode: 'no-cors'});
-          fetch(req).then(function(r) {
-            console.log(r);
+          //ToDo: Distinguish between reddit and other domains before doing this.
+          var jsonUrl = e.target.href.slice(0, -1) + '.json';
+          //ToDo: construct a header for 'Access-Control-Allow-Origin' to see if I can get links other than reddit.
+          var req = new Request(jsonUrl, {mode: 'cors'});
+          fetch(req).then(function(res) {
+            res.json().then(function (json) {
+              console.log(json);
+            });
           });
         });
 
