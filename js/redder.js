@@ -43,20 +43,23 @@ function fetchSubreddit(url) {
 
         var linkSpan = document.createElement('span');
 
+        //ToDo: Add indicator for whether article will load here or in a new tab.
         var contentLink = createFullElement('a', {
           'href': json.data.children[i].data.url
         })
         contentLink.addEventListener('click', function(e) {
           e.preventDefault();
-          //ToDo: Distinguish between reddit and other domains before doing this.
-          var jsonUrl = e.target.href.slice(0, -1) + '.json';
-          //ToDo: construct a header for 'Access-Control-Allow-Origin' to see if I can get links other than reddit.
-          var req = new Request(jsonUrl, {mode: 'cors'});
-          fetch(req).then(function(res) {
-            res.json().then(function (json) {
-              console.log(json);
-            });
-          });
+          if (e.target.href.indexOf('www.reddit.com') > -1) {
+            var jsonUrl = e.target.href.slice(0, -1) + '.json';
+            var req = new Request(jsonUrl, {mode: 'cors'});
+            fetch(req).then(function(res) {
+              res.text().then(function(text) {
+                console.log(text);
+              })
+            })
+          } else {
+            window.open(e.target.href, '_blank');
+          }
         });
 
         var linkText = document.createTextNode(json.data.children[i].data.title);
