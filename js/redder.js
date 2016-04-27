@@ -46,6 +46,14 @@ function fetchSubreddit(url) {
         var contentLink = createFullElement('a', {
           'href': json.data.children[i].data.url
         })
+        contentLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          // To Do: Chop trailing slash and add '.json'.
+          var req = new Request(e.target.href, {mode: 'no-cors'});
+          fetch(req).then(function(r) {
+            console.log(r);
+          });
+        });
 
         var linkText = document.createTextNode(json.data.children[i].data.title);
         contentLink.appendChild(linkText);
