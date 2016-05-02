@@ -54,6 +54,7 @@ function fetchSubreddit(url) {
             var req = new Request(jsonUrl, {mode: 'cors'});
             fetch(req).then(function(res) {
               res.text().then(function(text) {
+                //ToDo: Render returned json in UI.
                 console.log(text);
               })
             })
