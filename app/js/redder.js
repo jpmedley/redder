@@ -55,7 +55,7 @@ function fetchSubreddit(url) {
             fetch(req).then(function(res) {
               res.text().then(function(text) {
                 //ToDo: Render returned json in UI.
-                console.log(text);
+                //console.log(text);
               })
             })
           } else {
