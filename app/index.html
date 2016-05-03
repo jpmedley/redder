@@ -53,6 +53,7 @@
     console.log("Will service worker register?");
     navigator.serviceWorker.register('serviceworker.js').then(function(reg){
       console.log("Yes it did.");
+      return reg.sync.register('prefetch').then(function() {console.log("BackgroundSync fired.")});
     }).catch(function(err) {
       console.log("No it didn't. This happened: ", err)
     });

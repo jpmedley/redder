@@ -81,9 +81,11 @@ Cache.prototype.addAll||(Cache.prototype.addAll=function(t){function e(t){this.n
 
 
 
+importScripts("sync.js");
+
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/index.html","bcc1120d9ecf1ce6f91a4a76f0435c34"],["/js/redder.js","ee3ba2fe0160e49e5fe8de25cf3c20ef"],["/serviceworker.js","3a8c37557a986e1395b61eb19bf0547b"]];
+var PrecacheConfig = [["/index.html","4e7888d6b6b22244cab9f99a8e766150"],["/js/redder.js","ee3ba2fe0160e49e5fe8de25cf3c20ef"],["/serviceworker.js","0dde614c8dfb1f7d5a720a133b9b2a6f"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
@@ -298,7 +300,8 @@ self.addEventListener('fetch', function(event) {
 
 
 // Runtime cache configuration, using the sw-toolbox library.
-toolbox.options.debug = true;
+
+toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/, toolbox.cacheFirst, {"cache":{"maxEntries":3,"name":"articles-cache"}});
 toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/javascript\.json/, toolbox.networkFirst, {});
 
 
