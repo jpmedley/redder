@@ -81,11 +81,11 @@ Cache.prototype.addAll||(Cache.prototype.addAll=function(t){function e(t){this.n
 
 
 
-importScripts("sync.js");
+importScripts("config.js","sync.js");
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/index.html","d97d045509db9c4cf5949da2b6baef85"],["/js/redder.js","ee3ba2fe0160e49e5fe8de25cf3c20ef"],["/js/sync.js","75ef638b348cfb0509fbea262966993b"],["/serviceworker.js","d431458bfdde4b6abc29a934eacb8932"],["/sync.js","75ef638b348cfb0509fbea262966993b"]];
+var PrecacheConfig = [["/config.js","bfb4197366ebd9ab364abe92c0f427c9"],["/index.html","b6e4a29bff0c385b40c0049a89f69003"],["/js/redder.js","bf406a4d0547ae6ad92558c9fa65338b"],["/serviceworker.js","f62e8adcd147381edbc7c8a13232023f"],["/sync.js","c4f3045cd3083241bb78d0f6265e1609"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
@@ -302,7 +302,7 @@ self.addEventListener('fetch', function(event) {
 // Runtime cache configuration, using the sw-toolbox library.
 
 toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/, toolbox.cacheFirst, {"cache":{"maxEntries":3,"name":"articles-cache"}});
-toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/javascript\.json/, toolbox.networkFirst, {});
+toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/\w{1,255}\.json/, toolbox.networkFirst, {});
 
 
 

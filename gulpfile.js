@@ -26,9 +26,10 @@ gulp.task('make-service-worker', function(callback) {
 	swPrecache.write(path.join(rootDir, 'serviceworker.js'), {
 		staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
 		stripPrefix: rootDir,
-		importScripts: ['sync.js'],
+		importScripts: ['config.js', 'sync.js'],
 		runtimeCaching: [
 		{
+			//Articles 
 			urlPattern: /https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/,
 			handler: 'cacheFirst',
 			options: {
@@ -39,7 +40,7 @@ gulp.task('make-service-worker', function(callback) {
 			  }
 		},
 		{
-			urlPattern: /https:\/\/www\.reddit\.com\/r\/javascript\.json/,
+			urlPattern: /https:\/\/www\.reddit\.com\/r\/\w{1,255}\.json/,
 			handler: 'networkFirst'
 		}],
 		verbose: true
