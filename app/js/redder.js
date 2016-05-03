@@ -28,7 +28,7 @@ function createFullElement(elementName, attributeData) {
   return newElement;
 }
 
-function fetchSubreddit(url) {
+function fetchTopics(url) {
   if (url) {
     fetch('https://www.reddit.com/r/' + url + '.json').then(function(response) {
       return response.json();
@@ -105,7 +105,7 @@ function fetchSubreddit(url) {
   }
 }
 
-function fetchNavigation() {
+function fetchSubreddits() {
   var subredditsByTopicUrl = 'https://www.reddit.com/api/subreddits_by_topic.json?query=javascript';
   fetch(subredditsByTopicUrl).then(function(response) {
     return response.json();
@@ -121,7 +121,7 @@ function fetchNavigation() {
       var linkNode = navEl.appendChild(linkEl);
 
       linkNode.addEventListener('click', function(e) {
-        fetchSubreddit(e.target.firstChild.nodeValue);
+        fetchTopics(e.target.firstChild.nodeValue);
       });
     }
   }).catch(function(ex) {
@@ -130,9 +130,9 @@ function fetchNavigation() {
 }
 
 window.onload = function() {
-  fetchNavigation();
+  fetchSubreddits();
   var anchorLocation = window.location.href.indexOf('#');
   if (anchorLocation != -1) {
-    fetchSubreddit(window.location.href.slice(anchorLocation + 1));
+    fetchTopics(window.location.href.slice(anchorLocation + 1));
   }
 }
