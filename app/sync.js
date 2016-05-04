@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- function prefetchArticles() {
+ function fetchArticles() {
 	clients.matchAll({includeUncontrolled: true, type: 'window'}).then(function(clients){
 		for (var i = 0; i < clients.length; i++) {
 			var anchorLocation = clients[i].url.indexOf('#');
@@ -36,16 +36,15 @@
 					})
 			}
 		}
-	}).catch(function(err){
+	}).catch(function(err) {
 		console.log("Didn't work. Here's what happened: " + err);
 	})
  }
 
+
  self.addEventListener('sync', function(event) {
- 	//console.log("event: " + event);
  	if (event.tag == 'articles') {
-		//console.log("Inside wait.");
-		prefetchArticles();
- 	}
+		fetchArticles();
+ 	} 
  });
 
