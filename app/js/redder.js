@@ -122,6 +122,9 @@ function fetchSubreddits() {
 
       linkNode.addEventListener('click', function(e) {
         fetchTopics(e.target.firstChild.nodeValue);
+        navigator.serviceWorker.ready.then(function(reg) {
+          return reg.sync.register('articles');
+        })
       });
     }
   }).catch(function(ex) {

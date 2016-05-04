@@ -24,7 +24,7 @@ gulp.task('make-service-worker', function(callback) {
 	var rootDir = 'app';
 
 	swPrecache.write(path.join(rootDir, 'serviceworker.js'), {
-		staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
+		staticFileGlobs: [rootDir + '/**/*.{html,css,png,jpg,gif}'],
 		stripPrefix: rootDir,
 		importScripts: ['config.js', 'sync.js'],
 		runtimeCaching: [
@@ -34,14 +34,18 @@ gulp.task('make-service-worker', function(callback) {
 			handler: 'cacheFirst',
 			options: {
 			  	cache: {
-			    	maxEntries: 3,
-			     	name: 'articles-cache'
+			     	name: 'articles'
 			    }
 			  }
 		},
 		{
 			urlPattern: /https:\/\/www\.reddit\.com\/r\/\w{1,255}\.json/,
-			handler: 'networkFirst'
+			handler: 'networkFirst',
+			options: {
+				cache: {
+					name: 'titles'
+				}
+			}
 		}],
 		verbose: true
 	}, callback);

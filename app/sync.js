@@ -14,28 +14,41 @@
  * limitations under the License.
  */
 
+ function prefetchArticles() {
+	clients.matchAll({includeUncontrolled: true, type: 'window'}).then(function(clients){
+		for (var i = 0; i < clients.length; i++) {
+			var anchorLocation = clients[i].url.indexOf('#');
+			var anchorName = clients[i].url.slice(anchorLocation + 1);
+			if (anchorLocation != -1) {
+				fetch('https://www.reddit.com/r/' + anchorName + '.json')
+					.then(function(response) {
+						return response.json();
+					}).then(function(json) {
+						for (var j = 0; j < json.data.children.length; j++) {
+							if (json.data.children[j].data.domain == ('self.' + anchorName)) {
+								var jsonUrl = json.data.children[j].data.url.slice(0, -1) + '.json';
+								console.log(jsonUrl);
+								//self.registration.showNotification(jsonUrl);
+								var req = new Request(jsonUrl, {mode: 'cors'});
+								caches.open('articles-cache').then(function(aCache) {
+									//console.log("adding " + req.url);
+									aCache.add(req);
+								});
+							}
+						}
+					})
+			}
+		}
+	}).catch(function(err){
+		console.log("Didn't work. Here's what happened: " + err);
+	})
+ }
+
  self.addEventListener('sync', function(event) {
- 	if (event.tag == 'prefetch') {
- 		//event.waitUntil(function() {
- 			console.log("Inside wait.");
- 			clients.matchAll({includeUncontrolled: true, type: 'window'}).then(function(clients){
- 				for (var i = 0; i < clients.length; i++) {
- 					var anchorLocation = clients[i].url.indexOf('#');
- 					if (anchorLocation != -1) {
- 						fetch('https://www.reddit.com/r/' + clients[i].url.slice(anchorLocation + 1) + '.json')
- 							.then(function(response) {
- 								return response.json();
- 							}).then(function(json) {
- 								//ToDo: Do something with the response.
- 								console.log(json);
- 								self.registration.showNotification('Json available.');
- 							})
- 					}
- 				}
- 			}).catch(function(err){
- 				console.log("Didn't work. Here's what happened: " + err);
- 			})
- 		//})
+ 	//console.log("event: " + event);
+ 	if (event.tag == 'articles') {
+		//console.log("Inside wait.");
+		prefetchArticles();
  	}
  });
 
