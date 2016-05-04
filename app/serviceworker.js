@@ -85,7 +85,7 @@ importScripts("config.js","sync.js");
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/index.html","f13b52886deae40c62eb689fcdb30c1e"]];
+var PrecacheConfig = [["/assets/demos/dog.png","5d1bebbbbe167f7f7899c58fce24b642"],["/index.html","f13b52886deae40c62eb689fcdb30c1e"],["/message.html","201fb648aa5d8c6f08cb198e4c9ad140"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
@@ -261,7 +261,7 @@ self.addEventListener('fetch', function(event) {
       cacheName = AbsoluteUrlToCacheName[urlWithoutIgnoredParameters];
     }
 
-    var navigateFallback = '';
+    var navigateFallback = 'message.html';
     // Ideally, this would check for event.request.mode === 'navigate', but that is not widely
     // supported yet:
     // https://code.google.com/p/chromium/issues/detail?id=540967

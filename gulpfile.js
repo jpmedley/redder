@@ -27,6 +27,7 @@ gulp.task('make-service-worker', function(callback) {
 		staticFileGlobs: [rootDir + '/**/*.{html,css,png,jpg,gif}'],
 		stripPrefix: rootDir,
 		importScripts: ['config.js', 'sync.js'],
+		navigateFallback: 'message.html',
 		runtimeCaching: [
 		{
 			//Articles 
