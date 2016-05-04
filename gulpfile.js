@@ -30,14 +30,13 @@ gulp.task('make-service-worker', function(callback) {
 		navigateFallback: 'message.html',
 		runtimeCaching: [
 		{
-			//Articles 
-			urlPattern: /https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/,
-			handler: 'cacheFirst',
+			urlPattern: /https:\/\/www\.reddit\.com\/api\/subreddits_by_topic.json?query=javascript/,
+			handler: 'cacheOnly',
 			options: {
-			  	cache: {
-			     	name: 'articles'
-			    }
-			  }
+				cache: {
+					name: 'subreddits'
+				}
+			}
 		},
 		{
 			urlPattern: /https:\/\/www\.reddit\.com\/r\/\w{1,255}\.json/,
@@ -47,6 +46,15 @@ gulp.task('make-service-worker', function(callback) {
 					name: 'titles'
 				}
 			}
+		},
+		{
+			urlPattern: /https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/,
+			handler: 'cacheFirst',
+			options: {
+			  	cache: {
+			     	name: 'articles'
+			    }
+			  }
 		}],
 		verbose: true
 	}, callback);

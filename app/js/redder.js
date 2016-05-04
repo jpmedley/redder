@@ -134,6 +134,9 @@ function fetchSubreddits() {
 
 window.onload = function() {
   fetchSubreddits();
+  navigator.serviceWorker.ready.then(function(reg) {
+    return reg.sync.register('titles');
+  })
   var anchorLocation = window.location.href.indexOf('#');
   if (anchorLocation != -1) {
     fetchTopics(window.location.href.slice(anchorLocation + 1));

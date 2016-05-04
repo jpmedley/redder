@@ -301,8 +301,9 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/, toolbox.cacheFirst, {"cache":{"name":"articles"}});
+toolbox.router.get(/https:\/\/www\.reddit\.com\/api\/subreddits_by_topic.json?query=javascript/, toolbox.cacheOnly, {"cache":{"name":"subreddits"}});
 toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/\w{1,255}\.json/, toolbox.networkFirst, {"cache":{"name":"titles"}});
+toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/, toolbox.cacheFirst, {"cache":{"name":"articles"}});
 
 
 

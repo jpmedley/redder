@@ -16,6 +16,7 @@
 
  function fetchArticles() {
 	clients.matchAll({includeUncontrolled: true, type: 'window'}).then(function(clients){
+		//ToDo: Replace for loop for forEach() call.
 		for (var i = 0; i < clients.length; i++) {
 			var anchorLocation = clients[i].url.indexOf('#');
 			var anchorName = clients[i].url.slice(anchorLocation + 1);
@@ -41,10 +42,24 @@
 	})
  }
 
+function fetchTitles() {
+	caches.open('subreddits').then(function(cache) {
+		cache.keys().then(function(requests){
+			requests.forEach(function(request) {
+				var newRequest = Request(request, {mode: 'cors'});
+				fetch(newRequest).then(function(response) {
+					//Start here. Get the actual titles.
+				})
+			})
+		})
+	})
+}
 
  self.addEventListener('sync', function(event) {
  	if (event.tag == 'articles') {
 		fetchArticles();
- 	} 
+ 	} else if (event.tag == 'titles') {
+ 		fetchTitles();
+ 	}
  });
 
