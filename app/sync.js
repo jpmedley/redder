@@ -24,14 +24,14 @@
 					.then(function(response) {
 						return response.json();
 					}).then(function(json) {
-						json.data.children.forEach(function(child) {
-							if (child.data.domain == ('self.' + anchorName)) {
-								var jsonUrl = child.data.url.slice(0, -1) + '.json';
-								var req = new Request(jsonUrl, {mode: 'cors'});
-								caches.open('articles').then(function(aCache) {
+						caches.open('articles').then(function(aCache) {
+							json.data.children.forEach(function(child) {
+								if (child.data.domain == ('self.' + anchorName)) {
+									var jsonUrl = child.data.url.slice(0, -1) + '.json';
+									var req = new Request(jsonUrl, {mode: 'cors'});
 									aCache.add(req);
-								})
-							}
+								}
+							})
 						})
 					})
 			}

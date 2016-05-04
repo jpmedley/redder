@@ -85,7 +85,7 @@ importScripts("config.js","sync.js");
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/assets/demos/dog.png","5d1bebbbbe167f7f7899c58fce24b642"],["/index.html","f13b52886deae40c62eb689fcdb30c1e"],["/message.html","201fb648aa5d8c6f08cb198e4c9ad140"]];
+var PrecacheConfig = [["/images/dog.png","5d1bebbbbe167f7f7899c58fce24b642"],["/images/dog155x155.png","09794e445d6a6be7f9cbf0009c2a556d"],["/index.html","2d0fa0e18780705d498ad94f97982214"],["/message.html","f85027c10ccdf79116ecee806fdcc649"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
