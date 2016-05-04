@@ -24,18 +24,15 @@
 					.then(function(response) {
 						return response.json();
 					}).then(function(json) {
-						for (var j = 0; j < json.data.children.length; j++) {
-							if (json.data.children[j].data.domain == ('self.' + anchorName)) {
-								var jsonUrl = json.data.children[j].data.url.slice(0, -1) + '.json';
-								console.log(jsonUrl);
-								//self.registration.showNotification(jsonUrl);
+						json.data.children.forEach(function(child) {
+							if (child.data.domain == ('self.' + anchorName)) {
+								var jsonUrl = child.data.url.slice(0, -1) + '.json';
 								var req = new Request(jsonUrl, {mode: 'cors'});
-								caches.open('articles-cache').then(function(aCache) {
-									//console.log("adding " + req.url);
+								caches.open('articles').then(function(aCache) {
 									aCache.add(req);
-								});
+								})
 							}
-						}
+						})
 					})
 			}
 		}

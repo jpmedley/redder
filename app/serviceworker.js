@@ -85,7 +85,7 @@ importScripts("config.js","sync.js");
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/index.html","50fe80d42527bfb104d91f14e01802d3"]];
+var PrecacheConfig = [["/index.html","f13b52886deae40c62eb689fcdb30c1e"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
@@ -301,8 +301,8 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/, toolbox.cacheFirst, {"cache":{"name":"articles-cache"}});
-toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/\w{1,255}\.json/, toolbox.networkFirst, {});
+toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/, toolbox.cacheFirst, {"cache":{"name":"articles"}});
+toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/\w{1,255}\.json/, toolbox.networkFirst, {"cache":{"name":"titles"}});
 
 
 
