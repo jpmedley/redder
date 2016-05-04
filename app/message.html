@@ -18,7 +18,7 @@
 .demo-card-square > .mdl-card__title {
   color: #fff;
   background:
-    url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
+    url('images/dog.png') bottom right 15% no-repeat #46B6AC;
 }
 </style>
 </head>
@@ -53,7 +53,8 @@
   window.onload = function() {
     var backButton = document.querySelector('#back');
     backButton.addEventListener('click', function(e) {
-      console.log("Button clicked.");
+      //console.log("Button clicked.");
+      window.location.href = '/';
     })
   }
 </script>
