@@ -15,8 +15,8 @@
  */
 
 var navEl = document.querySelector('.mdl-navigation');
-var entriesEl = document.querySelector('.page-content');
-
+var contentEl = document.querySelector('.page-content');
+var articleEl = document.querySelector('.article-content');
 
 
 function createFullElement(elementName, attributeData) {
@@ -28,6 +28,48 @@ function createFullElement(elementName, attributeData) {
   }
 
   return newElement;
+}
+
+function fetchArticle(url) {
+  var req = new Request(url, {mode: 'cors'});      
+  fetch(req).then(res => {
+    res.json().then( json => {
+      var post = json[0];
+      // var comments = json[1];
+      var articleDiv = document.createElement('div');
+      post.data.children.forEach( child => {
+        console.log("<h3>" + child.data.author + "</h3>");
+          var heading = document.createElement('h3');
+          var title = document.createTextNode(child.data.title);
+          heading.appendChild(title);
+          articleDiv.appendChild(heading);
+
+          var paragraph = document.createElement('p');
+          var author = document.createTextNode("by " + child.data.author);
+          paragraph.appendChild(author);
+          articleDiv.appendChild(paragraph)
+
+          var article = document.createTextNode(child.data.selftext);
+          articleDiv.appendChild(article);
+
+          var link = createFullElement('a', {
+            'href': child.data.url,
+            'target': '_blank'
+          });
+          var linkText = document.createTextNode("View on Reddit ==>")
+          link.appendChild(linkText);
+          var linkParagraph = document.createElement('p');
+          linkParagraph.appendChild(link);
+          articleDiv.appendChild(linkParagraph);
+      });
+      if (articleEl.hasChildNodes()) {
+        while (articleEl.firstChild) {
+          articleEl.removeChild(articleEl.firstChild);
+        }
+      }
+      articleEl.appendChild(articleDiv);
+    })
+  })
 }
 
 function fetchTopics(url) {
@@ -68,14 +110,16 @@ function fetchTopics(url) {
         contentLink.addEventListener('click', e => {
           e.preventDefault();
           if (e.target.href.indexOf('www.reddit.com') > -1) {
-            var jsonUrl = e.target.href.slice(0, -1) + '.json';
-            var req = new Request(jsonUrl, {mode: 'cors'});
-            fetch(req).then(res => {
-              res.text().then( text => {
-                //ToDo: Render returned json in UI.
-                //console.log(text);
-              })
-            })
+            fetchArticle(e.target.href.slice(0, -1) + '.json');
+
+            // var jsonUrl = e.target.href.slice(0, -1) + '.json';
+            // var req = new Request(jsonUrl, {mode: 'cors'});
+            // fetch(req).then(res => {
+            //   res.text().then( text => {
+            //     //ToDo: Render returned json in UI.
+            //     //console.log(text);
+            //   })
+            // })
           } else {
             window.open(e.target.href, '_blank');
           }
@@ -99,10 +143,10 @@ function fetchTopics(url) {
         articleItem.appendChild(primarySpan);
         articleList.appendChild(articleItem);
       };
-      if (entriesEl.hasChildNodes) {
-        entriesEl.removeChild(entriesEl.firstChild);
+      if (contentEl.hasChildNodes) {
+        contentEl.removeChild(contentEl.firstChild);
       }
-      entriesEl.appendChild(articleList);
+      contentEl.appendChild(articleList);
     });
   }
 }
