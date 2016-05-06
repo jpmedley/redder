@@ -46,9 +46,10 @@ function fetchTitles() {
 	caches.open('subreddits').then(function(cache) {
 		cache.keys().then(function(requests){
 			requests.forEach(function(request) {
-				var newRequest = Request(request, {mode: 'cors'});
+				var newRequest = new Request(request, {mode: 'cors'});
 				fetch(newRequest).then(function(response) {
 					//Start here. Get the actual titles.
+					console.log(response);
 				})
 			})
 		})
@@ -56,6 +57,7 @@ function fetchTitles() {
 }
 
  self.addEventListener('sync', function(event) {
+ 	console.log("sync");
  	if (event.tag == 'articles') {
 		fetchArticles();
  	} else if (event.tag == 'titles') {

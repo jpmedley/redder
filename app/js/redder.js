@@ -17,6 +17,8 @@
 var navEl = document.querySelector('.mdl-navigation');
 var entriesEl = document.querySelector('.page-content');
 
+
+
 function createFullElement(elementName, attributeData) {
   var newElement = document.createElement(elementName);
   for (attr in attributeData) {
@@ -132,7 +134,7 @@ function fetchSubreddits() {
   });
 }
 
-window.onload = function() {
+function getReddit() {
   fetchSubreddits();
   navigator.serviceWorker.ready.then(function(reg) {
     return reg.sync.register('titles');
