@@ -43,7 +43,10 @@
  }
 
 function syncTitles(subreddit) {
-
+	var req = new Request('https://www.reddit.com/r/' + subreddit + '.json', {mode: 'cors'});
+	caches.open('titles').then( cache => {
+		cache.add(req)
+	})
 }
 
 function syncSubreddits() {
