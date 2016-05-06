@@ -48,15 +48,13 @@ function syncTitles(subreddit) {
 
 function syncSubreddits() {
 	// Start here and remember which level you are on.
+	var req = new Request('https://www.reddit.com/api/subreddits_by_topic.json?query=javascript', {mode: 'cors'});
 	caches.open('subreddits').then(function(cache) {
-		cache.keys().then(function(requests){
-			requests.forEach(function(request) {
-				var newRequest = new Request(request, {mode: 'cors'});
-				fetch(newRequest).then(function(response) {
-					response.json().then(function(json) {
-						json.forEach(function(child) {
-							syncTitles(child['name']);
-						})
+		cache.add(req).then(function() {
+			cache.match(req).then(function(res) {
+				res.json().then(function(json) {
+					json.forEach(function(child) {
+						syncTitles(child['name']);
 					})
 				})
 			})
@@ -65,7 +63,6 @@ function syncSubreddits() {
 }
 
  self.addEventListener('sync', function(event) {
- 	console.log("sync: " + event.tag);
  	if (event.tag == 'articles') {
 		syncArticles();
  	} else if (event.tag == 'subreddits') {
