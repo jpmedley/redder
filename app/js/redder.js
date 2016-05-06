@@ -136,9 +136,11 @@ function fetchSubreddits() {
 
 function getReddit() {
   fetchSubreddits();
-  navigator.serviceWorker.ready.then(function(reg) {
-    return reg.sync.register('titles');
-  })
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(function(reg) {
+      return reg.sync.register('subreddits');
+    });
+  }
   var anchorLocation = window.location.href.indexOf('#');
   if (anchorLocation != -1) {
     fetchTopics(window.location.href.slice(anchorLocation + 1));

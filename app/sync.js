@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- function fetchArticles() {
+ function syncArticles() {
 	clients.matchAll({includeUncontrolled: true, type: 'window'}).then(function(clients){
 		//ToDo: Replace for loop for forEach() call.
 		for (var i = 0; i < clients.length; i++) {
@@ -42,14 +42,22 @@
 	})
  }
 
-function fetchTitles() {
+function syncTitles(subreddit) {
+
+}
+
+function syncSubreddits() {
+	// Start here and remember which level you are on.
 	caches.open('subreddits').then(function(cache) {
 		cache.keys().then(function(requests){
 			requests.forEach(function(request) {
 				var newRequest = new Request(request, {mode: 'cors'});
 				fetch(newRequest).then(function(response) {
-					//Start here. Get the actual titles.
-					console.log(response);
+					response.json().then(function(json) {
+						json.forEach(function(child) {
+							syncTitles(child['name']);
+						})
+					})
 				})
 			})
 		})
@@ -57,11 +65,11 @@ function fetchTitles() {
 }
 
  self.addEventListener('sync', function(event) {
- 	console.log("sync");
+ 	console.log("sync: " + event.tag);
  	if (event.tag == 'articles') {
-		fetchArticles();
- 	} else if (event.tag == 'titles') {
- 		fetchTitles();
+		syncArticles();
+ 	} else if (event.tag == 'subreddits') {
+ 		syncSubreddits();
  	}
  });
 
