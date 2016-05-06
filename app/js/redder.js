@@ -32,9 +32,9 @@ function createFullElement(elementName, attributeData) {
 
 function fetchTopics(url) {
   if (url) {
-    fetch('https://www.reddit.com/r/' + url + '.json').then(function(response) {
+    fetch('https://www.reddit.com/r/' + url + '.json').then( response => {
       return response.json();
-    }).then(function(json) {
+    }).then( json => {
       var articleList = createFullElement('ul', {
         'class': 'demo-list-three mdl-list'
       });
@@ -65,13 +65,13 @@ function fetchTopics(url) {
         var contentLink = createFullElement('a', {
           'href': json.data.children[i].data.url
         })
-        contentLink.addEventListener('click', function(e) {
+        contentLink.addEventListener('click', e => {
           e.preventDefault();
           if (e.target.href.indexOf('www.reddit.com') > -1) {
             var jsonUrl = e.target.href.slice(0, -1) + '.json';
             var req = new Request(jsonUrl, {mode: 'cors'});
-            fetch(req).then(function(res) {
-              res.text().then(function(text) {
+            fetch(req).then(res => {
+              res.text().then( text => {
                 //ToDo: Render returned json in UI.
                 //console.log(text);
               })
@@ -109,9 +109,9 @@ function fetchTopics(url) {
 
 function fetchSubreddits() {
   var subredditsByTopicUrl = 'https://www.reddit.com/api/subreddits_by_topic.json?query=javascript';
-  fetch(subredditsByTopicUrl).then(function(response) {
+  fetch(subredditsByTopicUrl).then( response => {
     return response.json();
-  }).then(function(json) {
+  }).then( json => {
     for (var k = 0; k < json.length; k++) {
       var linkEl = createFullElement('a', {
         'class': 'mdl-navigation__link',
@@ -122,14 +122,14 @@ function fetchSubreddits() {
       linkEl.appendChild(linkText);
       var linkNode = navEl.appendChild(linkEl);
 
-      linkNode.addEventListener('click', function(e) {
+      linkNode.addEventListener('click', e => {
         fetchTopics(e.target.firstChild.nodeValue);
-        navigator.serviceWorker.ready.then(function(reg) {
+        navigator.serviceWorker.ready.then( reg => {
           return reg.sync.register('articles');
         })
       });
     }
-  }).catch(function(ex) {
+  }).catch( ex => {
     console.log('Parsing failed: ', ex);
   });
 }
@@ -137,7 +137,7 @@ function fetchSubreddits() {
 function getReddit() {
   fetchSubreddits();
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(function(reg) {
+    navigator.serviceWorker.ready.then( reg => {
       return reg.sync.register('subreddits');
     });
   }

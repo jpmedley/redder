@@ -42,17 +42,17 @@
 <script>
   if ('serviceWorker' in navigator) {
     console.log("Will service worker register?");
-    navigator.serviceWorker.register('serviceworker.js').then(function(reg){
+    navigator.serviceWorker.register('serviceworker.js').then( reg => {
       console.log("Yes it did.");
-    }).catch(function(err) {
+    }).catch( err => {
       console.log("No it didn't. This happened: ", err);
     });
   }
 </script>
 <script>
-  window.onload = function() {
+  window.addEventListener('load', () => {
     var backButton = document.querySelector('#back');
-    backButton.addEventListener('click', function(e) {
+    backButton.addEventListener('click', e => {
       //console.log("Button clicked.");
       window.location.href = '/';
     })

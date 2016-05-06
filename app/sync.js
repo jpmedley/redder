@@ -15,29 +15,27 @@
  */
 
  function syncArticles() {
-	clients.matchAll({includeUncontrolled: true, type: 'window'}).then(function(clients){
-		//ToDo: Replace for loop for forEach() call.
-		for (var i = 0; i < clients.length; i++) {
-			var anchorLocation = clients[i].url.indexOf('#');
-			var anchorName = clients[i].url.slice(anchorLocation + 1);
-			if (anchorLocation != -1) {
-				fetch('https://www.reddit.com/r/' + anchorName + '.json')
-					.then(function(response) {
-						return response.json();
-					}).then(function(json) {
-						caches.open('articles').then(function(aCache) {
-							json.data.children.forEach(function(child) {
-								if (child.data.domain == ('self.' + anchorName)) {
-									var jsonUrl = child.data.url.slice(0, -1) + '.json';
-									var req = new Request(jsonUrl, {mode: 'cors'});
-									aCache.add(req);
-								}
-							})
-						})
-					})
-			}
-		}
-	}).catch(function(err) {
+ 	clients.matchAll({includeUncontrolled: true, type: 'window'}).then( clients => {
+ 		clients.forEach( client => {
+ 			var anchorLocation = client.url.indexOf('#');
+ 			var anchorName = client.url.slice(anchorLocation + 1);
+ 			if (anchorLocation != -1) {
+ 				fetch('https://www.reddit.com/r/' + anchorName + '.json').then( response => {
+ 					return response.json();
+ 				}).then( json => {
+ 					caches.open('articles').then( cache => {
+ 						json.data.children.forEach( child => {
+ 							if (child.data.domain == ('self.' + anchorName)) {
+ 								var jsonUrl = child.data.url.slice(0, -1) + '.json';
+ 								var req = new Request(jsonUrl, {mode: 'cors'});
+ 								cache.add(req);
+ 							}
+ 						})
+ 					})
+ 				})
+ 			}
+ 		})
+	}).catch( err => {
 		console.log("Didn't work. Here's what happened: " + err);
 	})
  }
@@ -50,18 +48,17 @@ function syncTitles(subreddit) {
 }
 
 function syncSubreddits() {
-	// Start here and remember which level you are on.
 	var req = new Request('https://www.reddit.com/api/subreddits_by_topic.json?query=javascript', {mode: 'cors'});
-	caches.open('subreddits').then(function(cache) {
-		cache.add(req).then(function() {
-			cache.match(req).then(function(res) {
-				res.json().then(function(json) {
-					json.forEach(function(child) {
+	caches.open('subreddits').then( cache => {
+		cache.add(req).then( () => {
+			cache.match(req).then( res => {
+				res.json().then( json => {
+					json.forEach( child => {
 						syncTitles(child['name']);
 					})
 				})
 			})
-		})
+		} )
 	})
 }
 
