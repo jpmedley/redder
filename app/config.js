@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
-toolbox.options.debug = true;
+ 'use strict';
+
+ toolbox.options.debug = true;
+ 

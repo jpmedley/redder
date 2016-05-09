@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 'use strict';
 
 var navEl = document.querySelector('.mdl-navigation');
 var contentEl = document.querySelector('.page-content');
@@ -21,7 +22,7 @@ var articleEl = document.querySelector('.article-content');
 
 function createFullElement(elementName, attributeData) {
   var newElement = document.createElement(elementName);
-  for (attr in attributeData) {
+  for (var attr in attributeData) {
     var newAttribute = document.createAttribute(attr)
     newAttribute.value = attributeData[attr]
     newElement.setAttributeNode(newAttribute);
@@ -48,7 +49,7 @@ function fetchArticle(url) {
         authorParagraph.appendChild(author);
         articleDiv.appendChild(authorParagraph)
 
-        articleParagraph = document.createElement('p');
+        var articleParagraph = document.createElement('p');
         var article = document.createTextNode(child.data.selftext);
         articleParagraph.appendChild(article);
         articleDiv.appendChild(articleParagraph);
