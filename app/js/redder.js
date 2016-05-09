@@ -167,7 +167,7 @@ function fetchSubreddits() {
       });
     }
   }).catch( ex => {
-    console.log('Parsing failed: ', ex);
+    console.log('[Redder] Parsing failed: ', ex);
   });
 }
 

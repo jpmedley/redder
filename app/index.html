@@ -74,11 +74,11 @@
 <script src="js/redder.js"></script>
 <script>
   if ('serviceWorker' in navigator) {
-    console.log("Will service worker register?");
+    console.log("[Redder] Will service worker register?");
     navigator.serviceWorker.register('serviceworker.js').then( reg => {
-      console.log("Yes it did.");
+      console.log("[Redder] Yes it did.");
     }).catch( err => {
-      console.log("No it didn't. This happened: ", err);
+      console.log("[Redder] No it didn't. This happened: ", err);
     }).then(function() {
       var script = document.createElement('script');  
       script.src = 'js/redder.js';
