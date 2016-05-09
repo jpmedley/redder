@@ -15,10 +15,6 @@
  */
  'use strict';
 
-var navEl = document.querySelector('.mdl-navigation');
-var contentEl = document.querySelector('.page-content');
-var articleEl = document.querySelector('.article-content');
-
 
 function createFullElement(elementName, attributeData) {
   var newElement = document.createElement(elementName);
@@ -36,7 +32,6 @@ function fetchArticle(url) {
   fetch(req).then(res => {
     res.json().then( json => {
       var post = json[0];
-      // var comments = json[1];
       var articleDiv = document.createElement('div');
       post.data.children.forEach( child => {
         var heading = document.createElement('h3');
@@ -64,6 +59,7 @@ function fetchArticle(url) {
         linkParagraph.appendChild(link);
         articleDiv.appendChild(linkParagraph);
       });
+      var articleEl = document.querySelector('.article-content');
       if (articleEl.hasChildNodes()) {
         while (articleEl.firstChild) {
           articleEl.removeChild(articleEl.firstChild);
@@ -136,6 +132,7 @@ function fetchTopics(url) {
         articleItem.appendChild(primarySpan);
         articleList.appendChild(articleItem);
       };
+      var contentEl = document.querySelector('.page-content');
       if (contentEl.hasChildNodes) {
         contentEl.removeChild(contentEl.firstChild);
       }
@@ -157,6 +154,7 @@ function fetchSubreddits() {
 
       var linkText = document.createTextNode(json[k].name);
       linkEl.appendChild(linkText);
+      var navEl = document.querySelector('.mdl-navigation');
       var linkNode = navEl.appendChild(linkEl);
 
       linkNode.addEventListener('click', e => {
