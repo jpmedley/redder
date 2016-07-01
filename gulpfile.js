@@ -22,6 +22,7 @@ var swPrecache = require('sw-precache');
 var webserver = require('gulp-webserver');
 
 var rootDir = 'app';
+var version = '101';
 
 gulp.task('serve', function(callback) {
 	gulp.src(rootDir)
@@ -33,9 +34,14 @@ gulp.task('serve', function(callback) {
 		}))
 });
 
+gulp.task('msw', ['make-service-worker'], function(callback){
+	//Task alias
+})
+
 gulp.task('make-service-worker', function(callback) {
 
 	swPrecache.write(path.join(rootDir, 'serviceworker.js'), {
+		cacheId: 'redder' + version,
 		staticFileGlobs: [rootDir + '/**/*.{html,css,png,jpg,gif}',
 		                  rootDir + '/js/*.js'],
 		stripPrefix: rootDir,
@@ -47,7 +53,7 @@ gulp.task('make-service-worker', function(callback) {
 			handler: 'cacheOnly',
 			options: {
 				cache: {
-					name: 'subreddits'
+					name: 'subreddits' + version
 				}
 			}
 		},
@@ -56,7 +62,7 @@ gulp.task('make-service-worker', function(callback) {
 			handler: 'networkFirst',
 			options: {
 				cache: {
-					name: 'titles'
+					name: 'titles' + version
 				}
 			}
 		},
@@ -65,7 +71,7 @@ gulp.task('make-service-worker', function(callback) {
 			handler: 'cacheFirst',
 			options: {
 			  	cache: {
-			     	name: 'articles'
+			     	name: 'articles' + version
 			    }
 			  }
 		}],
