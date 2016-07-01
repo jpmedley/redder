@@ -99,7 +99,10 @@ function fetchTopics(url) {
         anImage.appendChild(someText);
         primarySpan.appendChild(anImage);
 
-        var linkSpan = document.createElement('span');
+        //var linkSpan = document.createElement('span');
+        var linkSpan = createFullElement('span', {
+          'class': 'mdl-list__item-text-body'
+        });
 
         //ToDo: Add indicator for whether article will load here or in a new tab.
         var contentLink = createFullElement('a', {
@@ -120,15 +123,11 @@ function fetchTopics(url) {
         primarySpan.appendChild(linkSpan);
 
         //Make the subtitle line.
-        var subtitleSpan = createFullElement('span', {
-          'class': 'mdl-list__item-sub-title'
-        })
-        var aBreak = document.createElement('br');
-        subtitleSpan.appendChild(aBreak);
+        var subtitleSpan = document.createElement('span');
 
-        var subtitleText = document.createTextNode(json.data.children[i].data.author + ' — ' + json.data.children[i].data.num_comments + ' comments');
+        var subtitleText = document.createTextNode(' ' +json.data.children[i].data.author + ' — ' + json.data.children[i].data.num_comments + ' comments');
         subtitleSpan.appendChild(subtitleText);
-        primarySpan.appendChild(subtitleSpan);
+        linkSpan.appendChild(subtitleSpan);
         articleItem.appendChild(primarySpan);
         articleList.appendChild(articleItem);
       };
