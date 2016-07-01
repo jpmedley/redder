@@ -85,7 +85,7 @@ importScripts("config.js","sync.js");
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/css/styles.css","06531eb581be93d0641d627b2f72af32"],["/images/dog.png","5d1bebbbbe167f7f7899c58fce24b642"],["/images/dog155x155.png","09794e445d6a6be7f9cbf0009c2a556d"],["/index.html","4b9b476261dfe1c6be6765e7957f9cbf"],["/js/redder.js","222bc66d034c90b08cb77106ee1bb482"],["/message.html","f50459496ca85ed41a88c273240137b2"]];
+var PrecacheConfig = [["/css/styles.css","06531eb581be93d0641d627b2f72af32"],["/images/dog.png","5d1bebbbbe167f7f7899c58fce24b642"],["/images/dog155x155.png","09794e445d6a6be7f9cbf0009c2a556d"],["/index.html","b0f67163a4305e4a5293f0acc9e827d0"],["/js/redder.js","c29f10049e59cd3e896d45cb889865db"],["/message.html","757d89350d3398f8936a6604e996de62"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
