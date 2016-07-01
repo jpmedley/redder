@@ -1,0 +1,30 @@
+{
+  "name": "redder",
+  "version": "1.0.1",
+  "description": "A progressive web app reader client for Reddit.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpmedley/redder.git"
+  },
+  "keywords": [
+    "Reddit",
+    "Progressive",
+    "Web",
+    "App",
+    "Offline"
+  ],
+  "author": "Joseph Medley <jmedley@google.com> (https://developers.google.com/web)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jpmedley/redder/issues"
+  },
+  "homepage": "https://github.com/jpmedley/redder#readme"
+}
