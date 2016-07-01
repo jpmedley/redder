@@ -85,9 +85,9 @@ importScripts("config.js","sync.js");
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/css/styles.css","06531eb581be93d0641d627b2f72af32"],["/images/dog.png","5d1bebbbbe167f7f7899c58fce24b642"],["/images/dog155x155.png","09794e445d6a6be7f9cbf0009c2a556d"],["/index.html","b0f67163a4305e4a5293f0acc9e827d0"],["/js/redder.js","c29f10049e59cd3e896d45cb889865db"],["/message.html","757d89350d3398f8936a6604e996de62"]];
+var PrecacheConfig = [["/css/styles.css","06531eb581be93d0641d627b2f72af32"],["/images/dog.png","5d1bebbbbe167f7f7899c58fce24b642"],["/images/dog155x155.png","09794e445d6a6be7f9cbf0009c2a556d"],["/index.html","1f5fd2e80f85cea0c7ca722bd675d742"],["/js/redder.js","7f9f03d76b5b27906b385c577fe6cd5c"],["/message.html","757d89350d3398f8936a6604e996de62"]];
 /* eslint-enable quotes, comma-spacing */
-var CacheNamePrefix = 'sw-precache-v1-redder101-' + (self.registration ? self.registration.scope : '') + '-';
+var CacheNamePrefix = 'sw-precache-v1-redder102-' + (self.registration ? self.registration.scope : '') + '-';
 
 
 var IgnoreUrlParametersMatching = [/^utm_/];
@@ -301,9 +301,9 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/https:\/\/www\.reddit\.com\/api\/subreddits_by_topic.json?query=javascript/, toolbox.cacheOnly, {"cache":{"name":"subreddits101"}});
-toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/\w{1,255}\.json/, toolbox.networkFirst, {"cache":{"name":"titles101"}});
-toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/, toolbox.cacheFirst, {"cache":{"name":"articles101"}});
+toolbox.router.get(/https:\/\/www\.reddit\.com\/api\/subreddits_by_topic.json?query=javascript/, toolbox.cacheOnly, {"cache":{"name":"subreddits102"}});
+toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/\w{1,255}\.json/, toolbox.networkFirst, {"cache":{"name":"titles102"}});
+toolbox.router.get(/https:\/\/www\.reddit\.com\/r\/javascript\/comments\/\w{6}\/[\w]{0,255}\.json/, toolbox.cacheFirst, {"cache":{"name":"articles102"}});
 
 
 
